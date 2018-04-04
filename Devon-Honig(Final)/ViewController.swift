@@ -10,15 +10,25 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //Outlets
+    @IBOutlet weak var brandScroll: UIPickerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //Method to populate the brandPicker. Call in viewDidLoad()
+    func populatePicker() {
+    
+    }
+    
+    
 
 
 }
