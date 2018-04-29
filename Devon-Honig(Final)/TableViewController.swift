@@ -9,15 +9,68 @@
 import UIKit
 
 class TableViewController: UITableViewController {
+    
+    var pairs: [Pair] = []
+    let dateFormatter = DateFormatter()
+    var pairIndex: Int = 0
+    let defaultImage = UIImage(named: "defaultSneaker.jpg")
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let newPair = Pair()
+        newPair.brandName = "Brand: Nike"
+        newPair.price = 180.00
+        newPair.styleName = "Style: AirMax One"
+        
+        pairs.append(newPair)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    // Writes image to file and returns unique file name (From Homework 5 sample solution)
+    func writeImageToFile(_ image: UIImage) -> String? {
+        if let data = UIImagePNGRepresentation(image) {
+            if let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let uniqueId = UUID().uuidString
+                let fileName = "\(uniqueId).png"
+                let fileURL = directoryURL.appendingPathComponent(fileName)
+                do {
+                    try data.write(to: fileURL)
+                    return fileName
+                } catch {
+                    print("\(error)")
+                }
+            }
+        } else {
+            print("Error converting image to PNG")
+        }
+        return nil
+    }
+    
+    func readImageFromFile(_ fileName: String) -> UIImage? {
+        if let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = directoryURL.appendingPathComponent(fileName)
+            return UIImage(contentsOfFile: fileURL.path)
+        }
+        return nil
+    }
+    
+    func deleteImageFile(_ fileName: String) {
+        if let directoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = directoryURL.appendingPathComponent(fileName)
+            do {
+                try FileManager.default.removeItem(at: fileURL)
+            } catch {
+                print("\(error)")
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,12 +82,29 @@ class TableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return pairs.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "paircell", for: indexPath) as! pairCell
+        let pair = pairs[indexPath.row]
+        cell.brandLabel.text = pair.brandName
+        cell.styleLabel.text = pair.styleName
+        if let imageFileName = pair.imageFileName {
+            if let image = readImageFromFile(imageFileName) {
+                cell.pairImageView.image = image
+            } else {
+                cell.pairImageView.image = defaultImage
+            }
+        } else {
+            cell.pairImageView.image = defaultImage
+        }
+        return cell
     }
     
     @IBAction func addPressed(_ sender: Any) {
