@@ -10,10 +10,11 @@
 		00E7984B2096702500742D8C /* Pair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7984A2096702500742D8C /* Pair.swift */; };
 		00E7984F2096741300742D8C /* pairCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E7984E2096741300742D8C /* pairCell.swift */; };
 		00E79851209674E200742D8C /* defaultSneaker.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00E79850209674E200742D8C /* defaultSneaker.jpg */; };
+		00E798532096A9A700742D8C /* detailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E798522096A9A700742D8C /* detailedView.swift */; };
+		00E798542096E0AB00742D8C /* Devon_Honig_Final_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00F0504C20754B190007EE14 /* Devon_Honig_Final_.xcdatamodeld */; };
 		00F0504620754B190007EE14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F0504520754B190007EE14 /* AppDelegate.swift */; };
 		00F0504820754B190007EE14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F0504720754B190007EE14 /* ViewController.swift */; };
 		00F0504B20754B190007EE14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F0504920754B190007EE14 /* Main.storyboard */; };
-		00F0504E20754B190007EE14 /* Devon_Honig_Final_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 00F0504C20754B190007EE14 /* Devon_Honig_Final_.xcdatamodeld */; };
 		00F0505020754B190007EE14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F0504F20754B190007EE14 /* Assets.xcassets */; };
 		00F0505320754B190007EE14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F0505120754B190007EE14 /* LaunchScreen.storyboard */; };
 		00F0505B20754BB40007EE14 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F0505A20754BB40007EE14 /* TableViewController.swift */; };
@@ -23,6 +24,7 @@
 		00E7984A2096702500742D8C /* Pair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pair.swift; sourceTree = "<group>"; };
 		00E7984E2096741300742D8C /* pairCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pairCell.swift; sourceTree = "<group>"; };
 		00E79850209674E200742D8C /* defaultSneaker.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = defaultSneaker.jpg; sourceTree = "<group>"; };
+		00E798522096A9A700742D8C /* detailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailedView.swift; sourceTree = "<group>"; };
 		00F0504220754B190007EE14 /* Devon-Honig(Final).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Devon-Honig(Final).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F0504520754B190007EE14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00F0504720754B190007EE14 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				00F0504520754B190007EE14 /* AppDelegate.swift */,
 				00F0504720754B190007EE14 /* ViewController.swift */,
 				00F0505A20754BB40007EE14 /* TableViewController.swift */,
+				00E798522096A9A700742D8C /* detailedView.swift */,
 				00F0504920754B190007EE14 /* Main.storyboard */,
 				00F0504F20754B190007EE14 /* Assets.xcassets */,
 				00F0505120754B190007EE14 /* LaunchScreen.storyboard */,
@@ -153,11 +156,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				00F0504820754B190007EE14 /* ViewController.swift in Sources */,
-				00F0504E20754B190007EE14 /* Devon_Honig_Final_.xcdatamodeld in Sources */,
 				00F0504620754B190007EE14 /* AppDelegate.swift in Sources */,
 				00E7984F2096741300742D8C /* pairCell.swift in Sources */,
 				00F0505B20754BB40007EE14 /* TableViewController.swift in Sources */,
+				00E798542096E0AB00742D8C /* Devon_Honig_Final_.xcdatamodeld in Sources */,
 				00E7984B2096702500742D8C /* Pair.swift in Sources */,
+				00E798532096A9A700742D8C /* detailedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

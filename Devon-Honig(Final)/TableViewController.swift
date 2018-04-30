@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TableViewController: UITableViewController {
     
@@ -14,18 +15,28 @@ class TableViewController: UITableViewController {
     let dateFormatter = DateFormatter()
     var pairIndex: Int = 0
     let defaultImage = UIImage(named: "defaultSneaker.jpg")
+    var managedObjectContext: NSManagedObjectContext!
+    var appDelegate: AppDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dateFormatter.dateFormat = "MM/dd/yyyy"
         
-        let newPair = Pair()
-        newPair.brandName = "Brand: Nike"
-        newPair.price = 180.00
-        newPair.styleName = "Style: AirMax One"
+        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.managedObjectContext = appDelegate.persistentContainer.viewContext
         
-        pairs.append(newPair)
+        
+        /*let newPair = Pair()
+        newPair.brandName = "Nike"
+        newPair.price = 180.00
+        newPair.styleName = "AirMax One"
+        
+        pairs.append(newPair)*/
+        
+        fetchTrips()
+        
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -112,11 +123,75 @@ class TableViewController: UITableViewController {
     }
     
     
+    @IBAction func unwindFromAddPair(sender: UIStoryboardSegue) {
+        let addPairVC = sender.source as! ViewController
+        if (!addPairVC.cancelled) {
+            let pair = NSEntityDescription.insertNewObject(forEntityName: "PairEntity", into: self.managedObjectContext)
+            let pairObj = Pair()
+            let brandName = addPairVC.brandTextField.text!
+            let styleName = addPairVC.styleTextField.text!
+            let price = (addPairVC.priceTextField.text! as NSString).doubleValue
+            let image = writeImageToFile(addPairVC.pairImageView.image!)
+            
+            pair.setValue(brandName, forKey: "brandName")
+            pair.setValue(styleName, forKey: "styleName")
+            pair.setValue(price, forKey: "price")
+            pair.setValue(image, forKey: "imageFileName")
+            self.appDelegate.saveContext()
+            
+            pairObj.brandName = brandName
+            pairObj.styleName = styleName
+            pairObj.price = price
+            pairObj.imageFileName = image
+            pairs.append(pairObj)
+            self.tableView.reloadData()
+            
+            /*let pair = Pair()
+            pair.brandName = addPairVC.brandTextField.text!
+            pair.styleName = addPairVC.styleTextField.text!
+            pair.price = (addPairVC.priceTextField.text! as NSString).doubleValue
+            pair.imageFileName = writeImageToFile(addPairVC.pairImageView.image!)
+            pairs.append(pair)
+            self.tableView.reloadData()*/
+        }
+    }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        pairIndex = indexPath.row
+        performSegue(withIdentifier: "toDetail", sender: self)
+    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "toDetail") {
+            let detailVC = segue.destination as! detailedView
+            detailVC.selectedPair = pairs[pairIndex]
+        }
+    }
     
-    
-    
+    func fetchTrips() {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PairEntity")
+        var pairEntities: [NSManagedObject]!
+        
+        do {
+            pairEntities = try self.managedObjectContext.fetch(fetchRequest)
+        } catch {
+            print("Error getting trips within 'fetchTrips'")
+        }
+        
+        print("Found \(pairEntities.count) trips.")
+        for i in pairEntities {
+            let newPair = Pair()
+            
+            newPair.brandName = i.value(forKey: "brandName") as! String
+            newPair.styleName = i.value(forKey: "styleName") as! String
+            newPair.price = i.value(forKey: "price") as! Double
+            newPair.imageFileName = i.value(forKey: "imageFileName") as? String
+            
+            pairs.append(newPair)
+        }
+        
+        self.tableView.reloadData()
+    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

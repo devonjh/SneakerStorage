@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let dateFormatter = DateFormatter()
-    var cancaulled: Bool = true
+    var cancelled: Bool = true
     let defaultImage = UIImage(named: "defaultSneaker.jpg")
     
     @IBOutlet weak var brandTextField: UITextField!
@@ -24,11 +24,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UINavigationControl
     }
     
     @objc func cancelTapped(_ sender: UIBarButtonItem) {
-        
+        cancelled = true
+        performSegue(withIdentifier: "unwindFromAddPair", sender: self)
     }
     
     @objc func saveTapped(_ sender: UIBarButtonItem) {
-        
+        cancelled = false
+        performSegue(withIdentifier: "unwindFromAddPair", sender: self)
     }
     
     override func viewDidLoad() {

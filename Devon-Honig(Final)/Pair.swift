@@ -12,7 +12,7 @@ class Pair {
     var brandName: String
     var styleName: String
     var date: Date
-    var price: double_t
+    var price: Double
     var imageFileName: String?
     
     init() {
